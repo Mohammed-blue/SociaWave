@@ -5,9 +5,14 @@ import User from "../models/User.js";
 export const getUser = async (req, res) => {
     try {
         const { id } = req.params // Extracting the user ID from the request parameters
+        console.log("User ID to fetch:", id); // Add this line to log the user ID
+
         const user = await User.findById(id);  // Fetching the user data from the database based on the provided ID
+        console.log("User data fetched:", user); // Add this line to log the fetched user data
+
         res.status(200).json(user);
     } catch (err) {
+        console.log("Error fetching user:", err); // Add this line to log the error
         res.status(404).json({ message: err.message });
     }
 }
@@ -55,6 +60,9 @@ export const addRemoveFriend = async (req, res) => {
     try {
         // Extract IDs for the user and friend from the request parameters
         const { id, friendId } = req.params;
+        console.log("User ID:", id); // Add this line to log the user ID
+        console.log("Friend ID:", friendId); // Add this line to log the friend ID
+
         // Find the user data based on the provided user ID
         const user = await User.findById(id);
         // Find the friend data based on the provided friend ID
@@ -98,6 +106,7 @@ export const addRemoveFriend = async (req, res) => {
         )
         res.status(200).json(formattedFriends);
     } catch (err) {
+        console.log("Error adding/removing friend:", err); // Add this line to log the error
         res.status(404).json({ message: err.message });
     }
 }
